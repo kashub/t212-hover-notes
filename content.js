@@ -1,5 +1,29 @@
-(function() {
+(function () {
     'use strict';
+
+    let notes = {};
+
+    const defaultFg = '#a00';
+    const defaultBg = '#ff7';
+
+    function loadNotesFromStorage() {
+        chrome.storage.sync.get('notes', (result) => {
+            // If no notes are saved, use the default hardcoded ones
+            if (Object.keys(result.notes).length === 0) {
+                notes = {
+                    'FAKE': {text: 'test fake one with different colours', bg: '#f1c40f', fg: '#000'}
+                };
+            } else {
+                notes = result.notes;
+            }
+        });
+    }
+
+    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+        if (request.action === "updateNotes") {
+            notes = request.notes;
+        }
+    });
 
     const style = `
     #t212-tooltip {
@@ -22,25 +46,6 @@
     styleElement.textContent = style;
     document.head.appendChild(styleElement);
 
-    const defaultFg = '#a00';
-    const defaultBg = '#ff7';
-
-    const keep = { text: 'KEEP', bg: '#294', fg: '#fff' };
-
-    const notes = {
-        'BARCl_EQ': keep,
-        'EYEl_EQ': { text: 'Go sell @ £306.7+'},
-        'VHYLl_EQ': keep,
-        'VUSAl_EQ': keep,
-        'PHNXl_EQ': keep,
-        'SEDYl_EQ': keep,
-        'SAPd_EQ': {text: 'Auto sell @ €253.00'},
-        'QWTMl_EQ': {text: 'See how it goes over time'},
-        'FB_US_EQ': {text: 'Sell as soon as there is some profit', bg: '#f00', 'fg': '#ff0'},
-
-        'FAKE': {text: 'just some test fake one with different background and foreground colours', bg: '#f1c40f', fg: '#000'}
-    };
-
     const tooltip = document.createElement('div');
     tooltip.id = 't212-tooltip';
     document.body.appendChild(tooltip);
@@ -54,8 +59,8 @@
 
             const key = inst.getAttribute('data-testid').replace('eq-investment-item-instrument-', '');
 
-            // Use a default note if the key is not found to show the key name
-            const noteData = notes[key] || { text: 'Key: ' + key, bg: '#eee', fg: '#666' };
+            // Use a default note style if the key is not found to show the key name
+            const noteData = notes[key] || {text: 'Key: ' + key, bg: '#eee', fg: '#666'};
 
             if (noteData.text) {
                 tooltip.textContent = noteData.text;
@@ -77,4 +82,6 @@
 
     document.body.addEventListener('mouseover', handleEvent);
     document.body.addEventListener('mouseout', handleEvent);
+
+    loadNotesFromStorage();
 })();

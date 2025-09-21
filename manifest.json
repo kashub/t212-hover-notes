@@ -1,8 +1,15 @@
 {
   "manifest_version": 3,
   "name": "Trading212 - Hover Notes by Kashub",
-  "version": "1.0",
+  "version": "1.1",
   "description": "Shows tooltips with custom notes on Trading212.",
+  "permissions": [
+    "storage"
+  ],
+  "options_page": "options.html",
+  "background": {
+    "service_worker": "background.js"
+  },
   "content_scripts": [
     {
       "matches": [
