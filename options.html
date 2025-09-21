@@ -6,19 +6,35 @@
         body {
             font-family: sans-serif;
             padding: 20px;
+            background-color: #f0f0f0;
+        }
+
+        .wrapper {
+            max-width: 1000px;
+            width: 90%;
+            margin: 0 auto;
+            font-size: 15px;
+        }
+
+        .container {
+            display: flex;
+            gap: 40px;
+        }
+
+        .left-column {
+            flex: 1;
+            min-width: 400px;
+        }
+
+        .right-column {
+            flex: 2;
         }
 
         #note-form {
             margin-bottom: 20px;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr) auto;
+            display: flex;
+            flex-direction: column;
             gap: 10px;
-        }
-
-        #note-form label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
         }
 
         #note-form div {
@@ -35,23 +51,23 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px;
+            padding: 3px 10px;
             border: 1px solid #ccc;
-            margin-bottom: 5px;
+            background-color: #fff;
+            margin-bottom: 3px;
             border-radius: 5px;
         }
 
         .note-item:hover {
-            background-color: #f9f9f9;
+            background-color: #ffe;
             border-color: #666;
         }
 
         .note-content {
             flex-grow: 1;
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 10px;
+            display: flex;
             align-items: center;
+            gap: 10px;
         }
 
         .note-content strong {
@@ -64,8 +80,6 @@
             font-family: monospace;
             font-size: 13px;
             white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         .note-item button {
@@ -77,6 +91,8 @@
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         #add-button {
@@ -86,8 +102,7 @@
             padding: 10px 15px;
             border-radius: 4px;
             cursor: pointer;
-            grid-column: 5 / 6;
-            align-self: end;
+            align-self: flex-end;
         }
 
         #add-button:hover {
@@ -113,32 +128,40 @@
     </style>
 </head>
 <body>
-<h1>Trading212 - Hover Notes by Kashub - Configuration</h1>
-<p>Add, edit, or remove notes for your stocks below.</p>
+<div class="wrapper">
 
-<div id="note-form">
-    <div>
-        <label for="symbol-input">Stock Symbol</label>
-        <input type="text" id="symbol-input">
+    <h1>Trading212 - Hover Notes by Kashub - Configuration</h1>
+    <p>Add, edit, or remove notes for your stocks below.</p>
+
+    <div class="container">
+        <div class="left-column">
+            <div id="note-form">
+                <div>
+                    <label for="symbol-input">Stock Symbol</label>
+                    <input type="text" id="symbol-input" placeholder="e.g., GOOGL_US_EQ">
+                </div>
+                <div>
+                    <label for="text-input">Note Text</label>
+                    <input type="text" id="text-input" placeholder="Your note here">
+                </div>
+                <div>
+                    <label for="fg-input">Text Colour</label>
+                    <input type="text" id="fg-input">
+                </div>
+                <div>
+                    <label for="bg-input">Background Colour</label>
+                    <input type="text" id="bg-input">
+                </div>
+                <button id="add-button">Add/Update Note</button>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <ul id="notes-list"></ul>
+            <div id="status"></div>
+        </div>
     </div>
-    <div>
-        <label for="text-input">Note Text</label>
-        <input type="text" id="text-input">
-    </div>
-    <div>
-        <label for="fg-input">Text Colour</label>
-        <input type="text" id="fg-input">
-    </div>
-    <div>
-        <label for="bg-input">Background Colour</label>
-        <input type="text" id="bg-input">
-    </div>
-    <button id="add-button">Add/Update Note</button>
 </div>
-
-<ul id="notes-list"></ul>
-<div id="status"></div>
-
 <script src="options.js"></script>
 </body>
 </html>
