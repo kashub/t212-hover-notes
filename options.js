@@ -47,24 +47,34 @@ function restoreOptions() {
             const fgColour = noteData.fg || defaultFg;
             const bgColour = noteData.bg || defaultBg;
 
-            listItem.innerHTML = `
-                <div class="note-content">
-                    <strong>${symbol}</strong>
-                    <span>${noteData.text}</span>
-                    <span style="color:${fgColour};">FG: ${fgColour}</span>
-                    <span style="color:${bgColour};">BG: ${bgColour}</span>
-                </div>
-                <div>
-                    <button class="delete-button">Delete</button>
-                </div>
-            `;
+            // make the not have the chosen colours, so they look... how they would look
+            const notePreview = document.createElement('span');
+            notePreview.className = 'note-preview';
+            notePreview.textContent = noteData.text;
+            notePreview.style.backgroundColor = bgColour;
+            notePreview.style.color = fgColour;
+            notePreview.style.borderColor = fgColour;
+            notePreview.title = `Symbol: ${symbol}\nText: ${noteData.text}\nText Colour: ${fgColour}\nBackground Colour: ${bgColour}`;
+
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'note-content';
+
+            const symbolStrong = document.createElement('strong');
+            symbolStrong.textContent = symbol;
+
+            contentDiv.appendChild(symbolStrong);
+            contentDiv.appendChild(notePreview);
+
+            const deleteButton = document.createElement('button');
+            deleteButton.className = 'delete-button';
+            deleteButton.textContent = 'Delete';
+            deleteButton.addEventListener('click', deleteNote);
+
+            listItem.appendChild(contentDiv);
+            listItem.appendChild(deleteButton);
+
             notesList.appendChild(listItem);
         }
-
-        // add listeners to new delete buttons
-        notesList.querySelectorAll('.delete-button').forEach(button => {
-            button.addEventListener('click', deleteNote);
-        });
 
         // pre-fill the inputs with default colours
         document.getElementById('fg-input').value = defaultFg;
@@ -98,7 +108,4 @@ function setStatus(message) {
 function clearInputs() {
     document.getElementById('symbol-input').value = '';
     document.getElementById('text-input').value = '';
-    // keep colours pre-filled
-    // document.getElementById('fg-input').value = '#a00';
-    // document.getElementById('bg-input').value = '#ff7';
 }

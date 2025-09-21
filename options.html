@@ -15,6 +15,17 @@
             gap: 10px;
         }
 
+        #note-form label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        #note-form div {
+            display: flex;
+            flex-direction: column;
+        }
+
         #notes-list {
             list-style: none;
             padding: 0;
@@ -38,13 +49,23 @@
         .note-content {
             flex-grow: 1;
             display: grid;
-            grid-template-columns: 1fr 2fr 0.5fr 0.5fr;
+            grid-template-columns: 1fr 2fr;
             gap: 10px;
             align-items: center;
         }
 
         .note-content strong {
             color: #333;
+        }
+
+        .note-preview {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 13px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .note-item button {
@@ -65,6 +86,8 @@
             padding: 10px 15px;
             border-radius: 4px;
             cursor: pointer;
+            grid-column: 5 / 6;
+            align-self: end;
         }
 
         #add-button:hover {
@@ -90,14 +113,26 @@
     </style>
 </head>
 <body>
-<h1>Trading212 Hover Notes Configuration</h1>
+<h1>Trading212 - Hover Notes by Kashub - Configuration</h1>
 <p>Add, edit, or remove notes for your stocks below.</p>
 
 <div id="note-form">
-    <input type="text" id="symbol-input" placeholder="Stock Symbol">
-    <input type="text" id="text-input" placeholder="Note Text">
-    <input type="text" id="fg-input" placeholder="Text Colour (e.g., #a00)">
-    <input type="text" id="bg-input" placeholder="Background Colour (e.g., #ff7)">
+    <div>
+        <label for="symbol-input">Stock Symbol</label>
+        <input type="text" id="symbol-input">
+    </div>
+    <div>
+        <label for="text-input">Note Text</label>
+        <input type="text" id="text-input">
+    </div>
+    <div>
+        <label for="fg-input">Text Colour</label>
+        <input type="text" id="fg-input">
+    </div>
+    <div>
+        <label for="bg-input">Background Colour</label>
+        <input type="text" id="bg-input">
+    </div>
     <button id="add-button">Add/Update Note</button>
 </div>
 

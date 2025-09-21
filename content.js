@@ -38,7 +38,7 @@
       font-size: 16px;
       font-family: monospace;
       line-height: 0.9em;
-      border: 1px dotted black;
+      border: 1px solid black;
     }
   `;
 
