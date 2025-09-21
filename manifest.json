@@ -12,8 +12,7 @@
     "storage"
   ],
   "host_permissions": [
-    "https://live.trading212.com/*",
-    "https://demo.trading212.com/*"
+    "https://*.trading212.com/*"
   ],
   "action": {
     "default_title": "T212 - Hover Notes by Kashub",
@@ -24,8 +23,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://live.trading212.com/*",
-        "https://demo.trading212.com/*"
+        "https://*.trading212.com/*"
       ],
       "js": [
         "content.js"
