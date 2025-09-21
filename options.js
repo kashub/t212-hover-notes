@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', restoreOptions);
 document.getElementById('add-button').addEventListener('click', addOrUpdateNote);
-
-// listen for input changes to update the live preview
 document.getElementById('text-input').addEventListener('input', updateLivePreview);
 document.getElementById('fg-input').addEventListener('input', updateLivePreview);
 document.getElementById('bg-input').addEventListener('input', updateLivePreview);
@@ -87,13 +85,22 @@ function restoreOptions() {
             contentDiv.appendChild(symbolStrong);
             contentDiv.appendChild(notePreview);
 
+            const buttonsDiv = document.createElement('div');
+            const editButton = document.createElement('button');
+            editButton.className = 'edit-button';
+            editButton.textContent = 'Edit';
+            editButton.addEventListener('click', editNote);
+
             const deleteButton = document.createElement('button');
             deleteButton.className = 'delete-button';
             deleteButton.textContent = 'Delete';
             deleteButton.addEventListener('click', deleteNote);
 
+            buttonsDiv.appendChild(editButton);
+            buttonsDiv.appendChild(deleteButton);
+
             listItem.appendChild(contentDiv);
-            listItem.appendChild(deleteButton);
+            listItem.appendChild(buttonsDiv);
 
             notesList.appendChild(listItem);
         }
@@ -102,6 +109,27 @@ function restoreOptions() {
         document.getElementById('bg-input').value = defaultBg;
 
         updateLivePreview();
+    });
+}
+
+function editNote(event) {
+    const listItem = event.target.closest('.note-item');
+    const symbol = listItem.dataset.symbol;
+
+    chrome.storage.sync.get('notes', (result) => {
+        const notes = result.notes || {};
+        const noteData = notes[symbol];
+
+        if (noteData) {
+            document.getElementById('symbol-input').value = symbol;
+            document.getElementById('text-input').value = noteData.text || '';
+            document.getElementById('fg-input').value = noteData.fg || '';
+            document.getElementById('bg-input').value = noteData.bg || '';
+            updateLivePreview();
+
+            // focus on the first input to make it easy to start editing
+            document.getElementById('text-input').focus();
+        }
     });
 }
 
