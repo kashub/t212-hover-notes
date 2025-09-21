@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="">
 <head>
-    <title>Trading212 - Hover Notes by Kashub - Settings</title>
+    <title>T212 - Hover Notes by Kashub - Settings</title>
     <style>
         body {
             font-family: sans-serif;
@@ -19,6 +19,28 @@
         .container {
             display: flex;
             gap: 40px;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .header-text-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin: 0 0 10px 0;
+        }
+
+        .header-icon {
+            width: 128px;
+            height: 128px;
         }
 
         .left-column {
@@ -177,12 +199,18 @@
 </head>
 <body>
 <div class="wrapper">
-
-    <h1>Trading212 - Hover Notes by Kashub - Configuration</h1>
-    <p>Add, edit, or remove notes for your stocks below.</p>
-    <p>The symbol must be exactly as it is on T212 - if you don't know what are the right values,
-        just hover over the stock on the left column on T212 page - the default note will appear with the key name</p>
-
+    <div class="header-container">
+        <img src="icon128.png" alt="Extension Icon" class="header-icon">
+        <div class="header-text-container">
+            <h1>T212 - Hover Notes by Kashub - Configuration</h1>
+            <p>
+                Add, edit, or remove notes for your stocks below.
+                The symbol must be exactly as it is on T212.<br>
+                If you don't know what are the right values, just hover over the stock on the left column on T212 page
+                - the default note will appear with the key name.
+            </p>
+        </div>
+    </div>
     <div class="container">
         <div class="left-column">
             <div id="note-form">
