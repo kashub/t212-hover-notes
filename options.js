@@ -4,10 +4,18 @@ document.getElementById('text-input').addEventListener('input', updateLivePrevie
 document.getElementById('fg-input').addEventListener('input', updateLivePreview);
 document.getElementById('bg-input').addEventListener('input', updateLivePreview);
 
+// helper function to convert 3-char hex to 6-char hex (normal people shouldn't need this if they didn't mess up the input before)
+function expandHex(hex) {
+    if (hex && hex.length === 4) {
+        return '#' + hex[1] + hex[1] + hex[2] + hex[2] + hex[3] + hex[3];
+    }
+    return hex;
+}
+
 function updateLivePreview() {
     const text = document.getElementById('text-input').value.trim();
-    const fg = document.getElementById('fg-input').value.trim() || '#a00';
-    const bg = document.getElementById('bg-input').value.trim() || '#ff7';
+    const fg = document.getElementById('fg-input').value.trim();
+    const bg = document.getElementById('bg-input').value.trim();
 
     const livePreview = document.getElementById('live-preview');
 
@@ -56,8 +64,8 @@ function restoreOptions() {
         notesList.innerHTML = '';
 
         // default colours
-        const defaultFg = '#a00';
-        const defaultBg = '#ff7';
+        const defaultFg = '#aa0000';
+        const defaultBg = '#ffff77';
 
         for (const symbol in notes) {
             const noteData = notes[symbol];
@@ -123,8 +131,13 @@ function editNote(event) {
         if (noteData) {
             document.getElementById('symbol-input').value = symbol;
             document.getElementById('text-input').value = noteData.text || '';
-            document.getElementById('fg-input').value = noteData.fg || '';
-            document.getElementById('bg-input').value = noteData.bg || '';
+
+            const fgValue = expandHex(noteData.fg || '#aa0000');
+            const bgValue = expandHex(noteData.bg || '#ffff77');
+
+            document.getElementById('fg-input').value = fgValue;
+            document.getElementById('bg-input').value = bgValue;
+
             updateLivePreview();
 
             // focus on the first input to make it easy to start editing
@@ -159,5 +172,9 @@ function setStatus(message) {
 function clearInputs() {
     document.getElementById('symbol-input').value = '';
     document.getElementById('text-input').value = '';
+
+    // set colours back to defaults when inputs are cleared
+    document.getElementById('fg-input').value = '#aa0000';
+    document.getElementById('bg-input').value = '#ffff77';
     updateLivePreview();
 }

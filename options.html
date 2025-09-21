@@ -37,9 +37,21 @@
             gap: 10px;
         }
 
-        #note-form div {
+        #note-form > div {
             display: flex;
             flex-direction: column;
+        }
+
+        #note-form > div.colours-row {
+            flex-direction: row;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .colour-input-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         #notes-list {
@@ -113,6 +125,12 @@
             box-sizing: border-box;
         }
 
+        input[type="color"] {
+            width: 40px;
+            height: 33px;
+            padding: 2px;
+        }
+
         #add-button {
             background-color: #28a745;
             color: white;
@@ -162,26 +180,32 @@
 
     <h1>Trading212 - Hover Notes by Kashub - Configuration</h1>
     <p>Add, edit, or remove notes for your stocks below.</p>
+    <p>The symbol must be exactly as it is on T212 - if you don't know what are the right values,
+        just hover over the stock on the left column on T212 page - the default note will appear with the key name</p>
 
     <div class="container">
         <div class="left-column">
             <div id="note-form">
                 <div>
-                    <label for="symbol-input">Stock Symbol</label>
+                    <label for="symbol-input">Stock Symbol:</label>
                     <input type="text" id="symbol-input" placeholder="e.g., GOOGL_US_EQ">
                 </div>
                 <div>
-                    <label for="text-input">Note Text</label>
+                    <label for="text-input">Note Text:</label>
                     <input type="text" id="text-input" placeholder="Your note here">
                 </div>
-                <div>
-                    <label for="fg-input">Text Colour</label>
-                    <input type="color" id="fg-input">
+                <div class="colours-row">
+                    <div class="colours-label">Colours:</div>
+                    <div class="colour-input-group">
+                        <span>Text: </span>
+                        <input type="color" id="fg-input">
+                    </div>
+                    <div class="colour-input-group">
+                        <span>Background: </span>
+                        <input type="color" id="bg-input">
+                    </div>
                 </div>
-                <div>
-                    <label for="bg-input">Background Colour</label>
-                    <input type="color" id="bg-input">
-                </div>
+
                 <button id="add-button">Add/Update Note</button>
 
                 <div id="live-preview-box" class="live-preview-box">
