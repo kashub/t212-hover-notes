@@ -1,37 +1,109 @@
 <!DOCTYPE html>
 <html lang="">
 <head>
-    <title>Trading212 Notes Settings</title>
+    <title>Trading212 - Hover Notes by Kashub - Settings</title>
     <style>
         body {
             font-family: sans-serif;
             padding: 20px;
         }
 
-        textarea {
-            width: 100%;
-            height: 400px;
-            font-family: monospace;
+        #note-form {
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr) auto;
+            gap: 10px;
         }
 
-        button {
-            margin-top: 10px;
-            padding: 10px 20px;
+        #notes-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .note-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+
+        .note-item:hover {
+            background-color: #f9f9f9;
+            border-color: #666;
+        }
+
+        .note-content {
+            flex-grow: 1;
+            display: grid;
+            grid-template-columns: 1fr 2fr 0.5fr 0.5fr;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .note-content strong {
+            color: #333;
+        }
+
+        .note-item button {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #add-button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #add-button:hover {
+            background-color: #218838;
+        }
+
+        .delete-button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+
+        .delete-button:hover {
+            background-color: #c82333;
         }
 
         #status {
-            margin-top: 10px;
+            margin-top: 15px;
             font-weight: bold;
         }
     </style>
 </head>
 <body>
 <h1>Trading212 Hover Notes Configuration</h1>
-<p>Edit your notes in JSON format. The key is the stock identifier and the value is the note object. Example:
-    `{"BARCl_EQ": {"text": "KEEP", "bg": "#294", "fg": "#fff"}}`</p>
-<textarea id="notes-input"></textarea>
-<button id="save-button">Save Notes</button>
+<p>Add, edit, or remove notes for your stocks below.</p>
+
+<div id="note-form">
+    <input type="text" id="symbol-input" placeholder="Stock Symbol">
+    <input type="text" id="text-input" placeholder="Note Text">
+    <input type="text" id="fg-input" placeholder="Text Colour (e.g., #a00)">
+    <input type="text" id="bg-input" placeholder="Background Colour (e.g., #ff7)">
+    <button id="add-button">Add/Update Note</button>
+</div>
+
+<ul id="notes-list"></ul>
 <div id="status"></div>
+
 <script src="options.js"></script>
 </body>
 </html>
