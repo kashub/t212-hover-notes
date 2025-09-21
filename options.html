@@ -58,7 +58,7 @@
             border-radius: 5px;
         }
 
-        .note-item:hover {
+        .note-item:hover, input[type="text"]:hover {
             background-color: #ffe;
             border-color: #666;
         }
@@ -80,6 +80,24 @@
             font-family: monospace;
             font-size: 13px;
             white-space: nowrap;
+        }
+
+        .live-preview-box {
+            padding: 10px;
+            border: 1px dashed #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .preview-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #live-preview {
+            display: inline-block;
         }
 
         .note-item button {
@@ -153,6 +171,14 @@
                     <input type="text" id="bg-input">
                 </div>
                 <button id="add-button">Add/Update Note</button>
+
+                <div id="live-preview-box" class="live-preview-box">
+                    <div class="preview-content">
+                        <span>Live Preview:</span>
+                        <span id="live-preview" class="note-preview"></span>
+                    </div>
+                </div>
+
             </div>
         </div>
 

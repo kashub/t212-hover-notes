@@ -1,6 +1,29 @@
 document.addEventListener('DOMContentLoaded', restoreOptions);
 document.getElementById('add-button').addEventListener('click', addOrUpdateNote);
 
+// listen for input changes to update the live preview
+document.getElementById('text-input').addEventListener('input', updateLivePreview);
+document.getElementById('fg-input').addEventListener('input', updateLivePreview);
+document.getElementById('bg-input').addEventListener('input', updateLivePreview);
+
+function updateLivePreview() {
+    const text = document.getElementById('text-input').value.trim();
+    const fg = document.getElementById('fg-input').value.trim() || '#a00';
+    const bg = document.getElementById('bg-input').value.trim() || '#ff7';
+
+    const livePreview = document.getElementById('live-preview');
+
+    if (text) {
+        livePreview.textContent = text;
+        livePreview.style.backgroundColor = bg;
+        livePreview.style.color = fg;
+        livePreview.style.borderColor = fg;
+    } else {
+        livePreview.textContent = '';
+        livePreview.style.cssText = '';
+    }
+}
+
 function addOrUpdateNote() {
     const symbol = document.getElementById('symbol-input').value.trim();
     const text = document.getElementById('text-input').value.trim();
@@ -47,7 +70,6 @@ function restoreOptions() {
             const fgColour = noteData.fg || defaultFg;
             const bgColour = noteData.bg || defaultBg;
 
-            // make the not have the chosen colours, so they look... how they would look
             const notePreview = document.createElement('span');
             notePreview.className = 'note-preview';
             notePreview.textContent = noteData.text;
@@ -76,9 +98,10 @@ function restoreOptions() {
             notesList.appendChild(listItem);
         }
 
-        // pre-fill the inputs with default colours
         document.getElementById('fg-input').value = defaultFg;
         document.getElementById('bg-input').value = defaultBg;
+
+        updateLivePreview();
     });
 }
 
@@ -108,4 +131,5 @@ function setStatus(message) {
 function clearInputs() {
     document.getElementById('symbol-input').value = '';
     document.getElementById('text-input').value = '';
+    updateLivePreview();
 }
