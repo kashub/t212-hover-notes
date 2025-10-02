@@ -149,6 +149,9 @@ function editNote(event) {
 function deleteNote(event) {
     const listItem = event.target.closest('.note-item');
     const symbol = listItem.dataset.symbol;
+    if (!confirm(`Are you sure you want to delete the note for "${symbol}"?`)) {
+        return;
+    }
 
     chrome.storage.sync.get('notes', (result) => {
         let notes = result.notes || {};
