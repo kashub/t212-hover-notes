@@ -12,11 +12,13 @@ Ever feel like you need a tiny, unobtrusive sticky note for your stocks on T212?
 
 ---
 
-### Pop-up Window
+### Note in Action
 
-A quick and easy way to access the extension's settings.
+See how the notes appear on the T212 website when you hover over a stock.
 
-![Extension Pop-up Window](screenshots/popup.png)
+![Note on the T212 Website](screenshots/stock1.png)
+![Note on the T212 Website](screenshots/stock2.png)
+![Note on the T212 Website](screenshots/stock3.png)
 
 ---
 
@@ -28,13 +30,11 @@ This is where you add, edit, and manage all your notes.
 
 ---
 
-### Note in Action
+### Pop-up Window
 
-See how the notes appear on the T212 website when you hover over a stock.
+A quick and easy way to access the extension's settings.
 
-![Note on the T212 Website](screenshots/stock1.png)
-![Note on the T212 Website](screenshots/stock2.png)
-![Note on the T212 Website](screenshots/stock3.png)
+![Extension Pop-up Window](screenshots/popup.png)
 
 ---
 
