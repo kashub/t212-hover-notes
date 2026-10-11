@@ -38,6 +38,12 @@ A quick and easy way to access the extension's settings.
 
 ---
 
+## 🚀 Get Started with Trading 212
+
+Interested in investing? Use [this link](https://www.trading212.com/invite/4DpML6f3gu8) to join a free trading platform and you could get up to £100 in free shares when you register!
+
+---
+
 ## How to Install (for developers) 👩‍💻
 
 1.  Clone this repository to your local machine.
