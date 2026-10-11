@@ -3,6 +3,10 @@ document.getElementById('add-button').addEventListener('click', addOrUpdateNote)
 document.getElementById('text-input').addEventListener('input', updateLivePreview);
 document.getElementById('fg-input').addEventListener('input', updateLivePreview);
 document.getElementById('bg-input').addEventListener('input', updateLivePreview);
+document.getElementById('export-button').addEventListener('click', exportConfig);
+document.getElementById('import-button').addEventListener('click', () => document.getElementById('import-file').click());
+document.getElementById('import-file').addEventListener('change', importConfig);
+
 
 // helper function to convert 3-char hex to 6-char hex (normal people shouldn't need this if they didn't mess up the input before)
 function expandHex(hex) {
@@ -180,4 +184,46 @@ function clearInputs() {
     document.getElementById('fg-input').value = '#aa0000';
     document.getElementById('bg-input').value = '#ffff77';
     updateLivePreview();
+}
+
+
+function exportConfig() {
+    chrome.storage.sync.get('notes', (result) => {
+        const notes = result.notes || {};
+        const dataStr = JSON.stringify(notes, null, 2);
+        const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+
+        const exportFileDefaultName = 't212-hover-notes-config.json';
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', exportFileDefaultName);
+        linkElement.click();
+        setStatus('Config exported!');
+    });
+}
+
+function importConfig(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        try {
+            const importedNotes = JSON.parse(e.target.result);
+            if (typeof importedNotes !== 'object' || importedNotes === null || Array.isArray(importedNotes)) {
+                throw new Error('Invalid config format.');
+            }
+
+            if (confirm('Import will override all current config. Continue?')) {
+                chrome.storage.sync.set({notes: importedNotes}, () => {
+                    setStatus('Config imported successfully!');
+                    restoreOptions();
+                    event.target.value = ''; // Reset file input
+                });
+            }
+        } catch (err) {
+            setStatus('Error importing config: ' + err.message);
+        }
+    };
+    reader.readAsText(file);
 }

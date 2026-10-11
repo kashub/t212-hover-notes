@@ -196,7 +196,26 @@
             margin-top: 15px;
             font-weight: bold;
         }
-    </style>
+    
+        .config-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .action-button {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .action-button:hover {
+            background-color: #5a6268;
+        }
+
+</style>
 </head>
 <body>
 <div class="wrapper">
@@ -243,6 +262,12 @@
                         <span id="live-preview" class="note-preview"></span>
                     </div>
                 </div>
+                <div class="config-actions">
+                    <button id="export-button" class="action-button">Export Config</button>
+                    <button id="import-button" class="action-button">Import Config</button>
+                    <input type="file" id="import-file" style="display: none;" accept=".json">
+                </div>
+
 
             </div>
         </div>
