@@ -9,6 +9,7 @@ Ever feel like you need a tiny, unobtrusive sticky note for your stocks on T212?
 * **Custom Colors**: Personalize your notes with custom text and background colors.
 * **Live Preview**: See what your note will look like before you save it.
 * **Easy Editing**: Edit or delete notes with a single click from the configuration page.
+* **Import/Export**: Save and load your configuration via JSON files.
 
 ---
 
